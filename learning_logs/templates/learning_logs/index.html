@@ -1,16 +1,42 @@
 {% extends 'learning_logs/base.html' %}
 
 {% block page_header %}
-  <div class="p-3 mb-4 bg-light border rounded-3">
+  <div class="p-3 mb-4 bg-light border rounded-3 shadow-sm">
     <div class="container-fluid py-4">
-      <h1 class="display-3">Track your learning.</h1>
+      <h1 class="display-3 text-primary">记录你的学习旅程</h1>
       
-      <p class="lead">Make your own Learning Log, and keep a list of the
-      topics you're learning about. Whenever you learn something new
-      about a topic, make an entry summarizing what you've learned.</p>
+      <p class="lead text-secondary">
+        创建属于你的学习日志，记录你正在学习的主题。当你学到新知识时，随时添加一条记录，总结你的学习成果。
+      </p>
 
-      <a class="btn btn-primary btn-lg mt-1"
-          href="{% url 'accounts:register' %}">Register &raquo;</a>
+      <a class="btn btn-primary btn-lg mt-3"
+          href="{% url 'accounts:register' %}">立即注册 &raquo;</a>
     </div>
   </div>
 {% endblock page_header %}
+
+{% block content %}
+  <div class="mt-4">
+    <h2 class="h4 text-secondary mb-3">功能介绍</h2>
+    <ul class="list-group mb-4">
+      <li class="list-group-item">
+        <strong>创建主题：</strong> 添加你正在学习的主题，例如“编程”或“外语”。
+      </li>
+      <li class="list-group-item">
+        <strong>添加记录：</strong> 每次学习新内容时，快速添加学习笔记。
+      </li>
+      <li class="list-group-item">
+        <strong>查看历史：</strong> 随时回顾你的学习旅程，保持持续进步。
+      </li>
+    </ul>
+
+    <div class="d-flex justify-content-center">
+      <a href="{% url 'learning_logs:topics' %}" class="btn btn-success btn-lg me-2">
+        浏览我的主题
+      </a>
+      <a href="{% url 'learning_logs:new_topic' %}" class="btn btn-outline-primary btn-lg">
+        创建新主题
+      </a>
+    </div>
+  </div>
+{% endblock content %}

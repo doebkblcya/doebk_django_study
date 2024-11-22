@@ -1,13 +1,27 @@
 {% extends "learning_logs/base.html" %}
 
 {% block content %}
+<div class="container my-4">
+    <!-- 添加新主题标题 -->
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">添加新主题</h5>
+        </div>
+        <div class="card-body">
+            <p class="text-muted mb-3">
+                在这里创建一个新的学习主题，比如“Python编程”或“外语学习”。以后可以为该主题添加相关条目。
+            </p>
 
-    <p>Add a new topic:</p>
-
-    <form action="{% url 'learning_logs:new_topic' %}" method='post'>
-        {% csrf_token %}
-        {{ form.as_div }}
-        <button name="submit">Add topic</button>
-    </form>
-
+            <!-- 表单 -->
+            <form action="{% url 'learning_logs:new_topic' %}" method="post" class="needs-validation">
+                {% csrf_token %}
+                <div class="mb-3">
+                    {{ form.as_p }}
+                </div>
+                <button name="submit" class="btn btn-success">添加主题</button>
+                <a href="{% url 'learning_logs:topics' %}" class="btn btn-secondary ms-2">取消</a>
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock content %}

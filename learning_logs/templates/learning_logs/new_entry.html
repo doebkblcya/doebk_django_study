@@ -1,15 +1,29 @@
 {% extends "learning_logs/base.html" %}
 
 {% block content %}
+<div class="container my-4">
+    <!-- 返回主题链接 -->
+    <p>
+        <a href="{% url 'learning_logs:topic' topic.id %}" class="btn btn-link text-decoration-none">
+            返回到主题：<strong>{{ topic }}</strong>
+        </a>
+    </p>
 
-    <p><a href="{% url 'learning_logs:topic' topic.id %}">{{ topic }}</a></p>
-
-    <p>Add a new entry:</p>
-
-    <form action="{% url 'learning_logs:new_entry' topic.id %}" method='post'>
-        {% csrf_token %}
-        {{ form.as_div }}
-        <button name='submit'>Add entry</button>
-    </form>
-
+    <!-- 添加新条目表单 -->
+    <div class="card shadow-sm">
+        <div class="card-header bg-success text-white">
+            <h5 class="mb-0">添加新条目</h5>
+        </div>
+        <div class="card-body">
+            <form action="{% url 'learning_logs:new_entry' topic.id %}" method="post" class="needs-validation">
+                {% csrf_token %}
+                <div class="mb-3">
+                    {{ form.as_p }}
+                </div>
+                <button name="submit" class="btn btn-primary">添加条目</button>
+                <a href="{% url 'learning_logs:topic' topic.id %}" class="btn btn-secondary ms-2">取消</a>
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock content %}

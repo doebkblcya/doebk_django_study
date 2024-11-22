@@ -1,22 +1,32 @@
 {% extends 'learning_logs/base.html' %}
 
 {% block page_header %}
-  <h1>Topics</h1>
+  <h1 class="display-4 text-primary">主题列表</h1>
 {% endblock page_header %}
 
 {% block content %}
-
-  <ul class="list-group border-bottom pb-2 mb-4">
+<div class="container my-4">
+  <!-- 主题列表 -->
+  <div class="list-group">
     {% for topic in topics %}
-      <li class="list-group-item border-0">
-        <a href="{% url 'learning_logs:topic' topic.id %}">
-          {{ topic.text }}</a>
-      </li>
+      <a href="{% url 'learning_logs:topic' topic.id %}" 
+         class="list-group-item list-group-item-action mb-3 shadow-sm rounded text-secondary text-decoration-none">
+        <h5 class="mb-1">{{ topic.text }}</h5>
+        <small class="text-muted">创建于 {{ topic.date_added|date:"Y年m月d日" }}</small>
+      </a>
     {% empty %}
-      <li class="list-group-item border-0">No topics have been added yet.</li>
+      <!-- 如果没有主题，显示提示信息 -->
+      <div class="alert alert-warning text-center">
+        暂无主题，快来添加一个新主题吧！
+      </div>
     {% endfor %}
-  </ul>
+  </div>
 
-  <a href="{% url 'learning_logs:new_topic' %}">Add a new topic</a>
-
+  <!-- 添加新主题按钮 -->
+  <div class="text-center mt-4">
+    <a href="{% url 'learning_logs:new_topic' %}" class="btn btn-success btn-lg">
+      添加新主题
+    </a>
+  </div>
+</div>
 {% endblock content %}

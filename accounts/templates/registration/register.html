@@ -1,9 +1,31 @@
 {% extends "learning_logs/base.html" %}
+{% load django_bootstrap5 %}
+
+{% block page_header %}
+  <h2 class="display-5 text-primary">注册新账户</h2>
+{% endblock page_header %}
 
 {% block content %}
-    <form action="{% url 'accounts:register' %}" method='post'>
+<div class="container my-4">
+  <div class="card shadow-sm rounded">
+    <div class="card-body">
+      <!-- 提示信息 -->
+      <p class="text-muted">
+        填写以下信息以注册您的新账户。注册后，您可以开始记录和管理您的学习日志！
+      </p>
+
+      <!-- 注册表单 -->
+      <form action="{% url 'accounts:register' %}" method="post">
         {% csrf_token %}
-        {{ form.as_div }}
-        <button name="submit">Register</button>
-    </form>
+        <div class="mb-3">
+          {% bootstrap_form form %}
+        </div>
+        <div class="text-center">
+          {% bootstrap_button button_type="submit" content="注册" class="btn-success btn-lg" %}
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 {% endblock content %}
+

@@ -1,74 +1,85 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Learning Log</title>
+  <title>学习日志</title>
 
   {% load django_bootstrap5 %}
   {% bootstrap_css %}
   {% bootstrap_javascript %}
-
 </head>
 <body>
-  <nav class="navbar navbar-expand-md navbar-light bg-light mb-4 border">
+  <!-- 导航栏 -->
+  <nav class="navbar navbar-expand-md navbar-light bg-light shadow-sm mb-4 border-bottom">
     <div class="container-fluid">
-      <a class="navbar-brand" href="{% url 'learning_logs:index' %}">
-          Learning Log</a>
+      <!-- 网站名称 -->
+      <a class="navbar-brand fw-bold text-primary" href="{% url 'learning_logs:index' %}">
+          学习日志</a>
 
+      <!-- 折叠按钮 -->
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
         data-bs-target="#navbarCollapse" aria-controls="navbarCollapse"
-        aria-expanded="false" aria-label="Toggle navigation">
+        aria-expanded="false" aria-label="切换导航">
         <span class="navbar-toggler-icon"></span>
       </button>
 
+      <!-- 导航菜单 -->
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav me-auto mb-2 mb-md-0">
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'learning_logs:topics' %}">
-              Topics</a></li>
-        </ul> <!-- End of links on left side of navbar -->
+            <a class="nav-link" href="{% url 'learning_logs:topics' %}">主题列表</a>
+          </li>
+        </ul> <!-- 左侧导航链接结束 -->
 
-        <!-- Account-related links -->
+        <!-- 用户相关链接 -->
         <ul class="navbar-nav ms-auto mb-2 mb-md-0">
-
           {% if user.is_authenticated %}
             <li class="nav-item">
-              <span class="navbar-text me-2">Hello, {{ user.username }}.
-                </span></li>
+              <span class="navbar-text me-3 text-secondary">你好，{{ user.username }}！</span>
+            </li>
           {% else %}
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'accounts:register' %}">
-                  Register</a></li>
+              <a class="nav-link" href="{% url 'accounts:register' %}">注册</a>
+            </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'accounts:login' %}">
-                  Log in</a></li>
+              <a class="nav-link" href="{% url 'accounts:login' %}">登录</a>
+            </li>
           {% endif %}
-
-        </ul> <!-- End of account-related links -->
+        </ul> <!-- 用户相关链接结束 -->
 
         {% if user.is_authenticated %}
-          <form action="{% url 'accounts:logout' %}" method='post'>
+          <form action="{% url 'accounts:logout' %}" method="post" class="d-inline">
             {% csrf_token %}
-            <button name='submit' class='btn btn-outline-secondary btn-sm'>
-              Log out</button>
+            <button name="submit" class="btn btn-outline-secondary btn-sm ms-3">退出登录</button>
           </form>
         {% endif %}
+      </div> <!-- 折叠导航菜单结束 -->
+    </div> <!-- 导航栏容器结束 -->
+  </nav> <!-- 导航栏结束 -->
 
-      </div> <!-- Closes collapsible parts of navbar -->
-
-    </div> <!-- Closes navbar's container -->
-  </nav> <!-- End of navbar -->
-
+  <!-- 主体内容 -->
   <main class="container">
-    <div class="pb-2 mb-2 border-bottom">
-      {% block page_header %}{% endblock page_header %}
+    <!-- 页面标题 -->
+    <div class="pb-3 mb-4 border-bottom">
+      {% block page_header %}
+        <h1 class="h3 fw-bold text-secondary">欢迎来到学习日志</h1>
+      {% endblock page_header %}
     </div>
 
-    <div>
-      {% block content %}{% endblock content %}
+    <!-- 动态内容 -->
+    <div class="content-area">
+      {% block content %}
+        <p>这里是主要内容区域。</p>
+      {% endblock content %}
     </div>
-  </main>
+  </main> <!-- 主体内容结束 -->
 
+  <!-- 页脚 -->
+  <footer class="bg-light py-3 mt-4 border-top text-center">
+    <div class="container">
+      <span class="text-muted">© 2024 学习日志项目. 版权所有.</span>
+    </div>
+  </footer>
 </body>
 </html>
